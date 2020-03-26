@@ -53,3 +53,46 @@ public:
         return res;
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void walkTree(TreeNode* root, vector<int>& res){
+        if(root == NULL)
+            return;
+        walkTree(root->left, res);
+        res.push_back(root->val);
+        walkTree(root->right, res);
+    }
+    vector<int> findMode(TreeNode* root) {
+        vector<int> temp;
+        vector<int> res;
+        map<int, int> cnt;
+        if(root == NULL)
+            return res;
+        walkTree(root, temp);
+        for(int te : temp){
+            if(cnt[te])
+                cnt[te]++;
+            else
+                cnt[te] = 1;
+        }
+        map<int,int>::iterator it = cnt.begin();
+        int maxCnt = 0;
+        for(;it!=cnt.end();it++)
+            maxCnt = max(maxCnt, it->second);
+        for(it = cnt.begin();it!=cnt.end();it++){
+            if(maxCnt == it->second)
+                res.push_back(it->first);
+        }
+        return res;
+    }
+};

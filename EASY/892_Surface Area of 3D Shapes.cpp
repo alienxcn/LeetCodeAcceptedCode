@@ -35,3 +35,28 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    int surfaceArea(vector<vector<int>>& grid) {
+        int res = 0;
+        int cls = 0;
+        int len = grid.size();
+        int direct[4][2] = {1,0,0,1,-1,0,0,-1};
+        for(int i=0; i<len; i++){
+            for(int j=0; j<len; j++){
+                if(grid[i][j] != 0){
+                    res += grid[i][j] * 4 + 2;
+                    for(int k=0; k<4; k++){
+                        int nx = i + direct[k][0];
+                        int ny = j + direct[k][1];
+                        if(0<=nx && nx<len && 0<=ny && ny<len){
+                            cls += min(grid[nx][ny], grid[i][j]);
+                        }
+                    }
+                }
+            }
+        }
+        return res - cls;
+    }
+};

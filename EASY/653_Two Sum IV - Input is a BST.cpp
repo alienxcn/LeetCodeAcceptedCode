@@ -42,3 +42,32 @@ public:
         return false;
     }
 };
+
+// 将问题转化为寻找有序数组的两数之和
+class Solution {
+public:
+    bool twoSum(vector<int>& res, int target){
+        int L = 0, R = res.size()-1;
+        while(L < R){
+            if(res[L] + res[R] > target)
+                R--;
+            else if(res[L] + res[R] < target)
+                L++;
+            else if(res[L] + res[R] == target)
+                return true;
+        }
+        return false;
+    }
+    void walk(TreeNode* root, vector<int>& res){
+        if(root != NULL){
+            walk(root->left, res);
+            res.push_back(root->val);
+            walk(root->right, res);
+        }
+    }
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> temp;
+        walk(root, temp);
+        return twoSum(temp, k);
+    }
+};

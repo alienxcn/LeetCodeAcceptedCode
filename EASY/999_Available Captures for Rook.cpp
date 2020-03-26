@@ -28,3 +28,50 @@ public:
         return 0;
     }
 };
+
+class Solution {
+public:
+    int numRookCaptures(vector<vector<char>>& board) {
+        int res = 0;
+        pair<int, int> rook;
+        for(int i=0; i<8; i++){
+            for(int j=0; j<8; j++){
+                if(board[i][j] == 'R')
+                    rook = make_pair(i, j);
+            }
+        }
+        for(int i=rook.first-1; i>=0; i--){
+            if(board[i][rook.second] == 'p'){
+                res++;
+                break;
+            } else if (board[i][rook.second] == 'B') {
+                break;
+            }
+        }
+        for(int i=rook.first+1; i<8; i++){
+            if(board[i][rook.second] == 'p'){
+                res++;
+                break;
+            } else if (board[i][rook.second] == 'B') {
+                break;
+            }
+        }
+        for(int i=rook.second-1; i>=0; i--){
+            if(board[rook.first][i] == 'p'){
+                res++;
+                break;
+            } else if (board[rook.first][i] == 'B') {
+                break;
+            }
+        }
+        for(int i=rook.second+1; i<8; i++){
+            if(board[rook.first][i] == 'p'){
+                res++;
+                break;
+            } else if (board[rook.first][i] == 'B') {
+                break;
+            }
+        }
+        return res;
+    }
+};

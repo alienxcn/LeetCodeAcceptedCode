@@ -30,3 +30,26 @@ public:
         return res + sig;
     }
 };
+
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        vector<int> dp(52,0);
+        for(int i=0; i<s.size(); i++){
+            if('a' <= s[i] && s[i] <= 'z')
+                dp[s[i] - 'a']++;
+            else
+                dp[s[i] - 'A' + 26]++;
+        }
+        int res = 0;
+        int sig = 0;
+        for(int i=0; i<52; i++){
+            res += dp[i];
+            if(dp[i] % 2 == 1){
+                res--;
+                sig = 1;
+            }
+        }
+        return res + sig;
+    }
+};
